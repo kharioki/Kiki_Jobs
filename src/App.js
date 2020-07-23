@@ -8,13 +8,13 @@ import JobsPagination from './components/jobsPagination';
 function App() {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
-  const { jobs, loading, error } = useFetchJobs(params, page);
+  const { jobs, loading, error, hasNextPage } = useFetchJobs(params, page);
 
   return (
     <Container className="my-4">
       <h1 className="mb-4">Kiki Jobs</h1>
 
-      <JobsPagination page={page} setPage={setPage} hasNextPage={true} />
+      <JobsPagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
 
       {loading && <h1>Loading...</h1>}
       {error && <h1>Error, try refreshing.</h1>}
@@ -23,7 +23,7 @@ function App() {
         return <Job key={job.id} job={job} />;
       })}
 
-      <JobsPagination page={page} setPage={setPage} hasNextPage={true} />
+      <JobsPagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
     </Container>
   );
 }
