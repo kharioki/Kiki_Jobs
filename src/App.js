@@ -3,6 +3,7 @@ import useFetchJobs from './useFetchJobs';
 import { Container } from 'react-bootstrap';
 
 import Job from './components/job';
+import JobsPagination from './components/jobsPagination';
 
 function App() {
   const [params, setParams] = useState({});
@@ -10,13 +11,19 @@ function App() {
   const { jobs, loading, error } = useFetchJobs(params, page);
 
   return (
-    <Container>
+    <Container className="my-4">
+      <h1 className="mb-4">Kiki Jobs</h1>
+
+      <JobsPagination page={page} setPage={setPage} hasNextPage={true} />
+
       {loading && <h1>Loading...</h1>}
       {error && <h1>Error, try refreshing.</h1>}
 
       {jobs.map(job => {
         return <Job key={job.id} job={job} />;
       })}
+
+      <JobsPagination page={page} setPage={setPage} hasNextPage={true} />
     </Container>
   );
 }
